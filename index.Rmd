@@ -1,5 +1,6 @@
 ---
 title: "Force specific order of the variables on the X axis"
+Author: "YAP S S"
 output:
   html_document:
     df_print: paged
