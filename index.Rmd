@@ -1,0 +1,49 @@
+---
+title: "Force specific order of the variables on the X axis"
+output:
+  html_document:
+    df_print: paged
+---
+
+
+
+```{r}
+paretoData <-  data.frame(
+  EffectNames = c("Pull Back(A)", "Hook(B)", "Peg(C)", "AB", "BC", "AC", "ABC"), 
+  Half_Effect = c(10.4, 6.5, 5.6, 1.6, 0.98, .77, .65))
+
+```
+
+
+```{r}
+library(ggplot2)
+p <- ggplot(paretoData, aes(x = EffectNames, y = Half_Effect)) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = Half_Effect), vjust = 1.5, colour = "white")
+p
+```
+
+### Reorder the levels in order of first appearance without Hadley's forcats package
+```{r}
+
+# Reorder the levels according to another variable with base R instead of fct_reorder()
+
+p + aes(x = reorder(EffectNames, Half_Effect))
+
+```
+
+### Reorder the levels according to another variable with fct_reorder()
+
+```{r}
+library(forcats)
+p + aes(x = fct_inorder(EffectNames))
+
+
+```
+
+### References
+
+https://stackoverflow.com/a/41417136/6087933
+
+
+
